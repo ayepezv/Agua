@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Document   : agua_co_sector.xml
+   Description:
+        Estructura de la tabla agua_co_sector.
+-->
+<tabla>
+  <columna>
+    <nombre>sec_id</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('agua_co_sector_sec_id_seq'::regclass)</defecto>
+  </columna>
+  <columna>
+    <nombre>sec_num</nombre>
+    <tipo>character varying(4)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>sec_nombre</nombre>
+    <tipo>character varying(50)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_id</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <restriccion>
+        <nombre>agua_co_ciclo_fkey</nombre>
+        <consulta>FOREIGN KEY (cic_id)
+            REFERENCES agua_ciclo (cic_id)
+            ON DELETE SET NULL ON UPDATE CASCADE</consulta>
+    </restriccion>
+  <restriccion>
+    <nombre>agua_co_sector_pkey</nombre>
+    <consulta>PRIMARY KEY (sec_id)</consulta>
+  </restriccion>
+</tabla>

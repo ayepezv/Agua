@@ -1,0 +1,53 @@
+{include="header2"}
+
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="page-header">
+            <h1>
+               <span class="glyphicon glyphicon-info-sign"></span> Tarifas
+            </h1>
+            <div class="help-block">
+               Puedes establecer reglas distintas para una o varias familias
+               <b>dentro de la configuración de la tarifa</b>.
+            </div>
+         </div>
+         <div class="table-responsive">
+            <table class="table table-hover">
+               <thead>
+                  <tr>
+                     <th class="text-left">Código + Nombre</th>
+                     <th class="text-left">Aplicar</th>
+                     <th class="text-right">Grupos de clientes</th>
+                  </tr>
+               </thead>
+               {loop="$fsc->tarifa->all()"}
+               <tr class="clickableRow" href="{$value->url()}">
+                  <td><a href="{$value->url()}">{$value->codtarifa}</a> {$value->nombre}</td>
+                  <td>{$value->diff()}</td>
+                  <td class="text-right">
+                     {loop="$fsc->get_grupos_tar($value->codtarifa)"}
+                     {$value->nombre},
+                     {else}
+                     -
+                     {/loop}
+                  </td>
+               </tr>
+               {else}
+               <tr class="warning">
+                  <td colspan="5">
+                     No hay ninguna tarifa definida. <b>Si ya tenías creadas</b>
+                     pulsa el botón de importar.<br/><br/>
+                     <a class="btn btn-xs btn-warning" href="{$fsc->url()}&importar=TRUE" target="_parent">
+                        <span class="glyphicon glyphicon-import"></span>&nbsp; Importar
+                     </a>
+                  </td>
+               </tr>
+               {/loop}
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+{include="footer2"}

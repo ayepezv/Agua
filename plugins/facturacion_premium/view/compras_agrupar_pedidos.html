@@ -1,0 +1,274 @@
+{include="header"}
+
+<script type="text/javascript">
+   $(document).ready(function() {
+      document.f_agrupar_pre.ac_proveedor.focus();
+      $("#ac_proveedor").autocomplete({
+         serviceUrl: '{$fsc->url()}',
+         paramName: 'buscar_proveedor',
+         onSelect: function (suggestion) {
+            if(suggestion)
+            {
+               if(document.f_agrupar_pre.codproveedor.value != suggestion.data && suggestion.data != '')
+               {
+                  document.f_agrupar_pre.codproveedor.value = suggestion.data;
+               }
+            }
+         }
+      });
+   });
+</script>
+
+<form name="f_agrupar_pre" action="{$fsc->url()}" method="post" class="form">
+   {if="$fsc->proveedor"}
+   <input type="hidden" name="codproveedor" value="{$fsc->proveedor->codproveedor}"/>
+   {else}
+   <input type="hidden" name="codproveedor"/>
+   {/if}
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="btn-group">
+               <a class="btn btn-sm btn-default" href="index.php?page=compras_pedidos">
+                  <span class="glyphicon glyphicon-arrow-left"></span>
+                  <span class="hidden-xs">&nbsp; Todos</span>
+               </a>
+               <a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la página">
+                  <span class="glyphicon glyphicon-refresh"></span>
+               </a>
+            </div>
+            <div class="btn-group">
+               {loop="$fsc->extensions"}
+                  {if="$value->type=='button'"}
+                  <a href="index.php?page={$value->from}{$value->params}" class="btn btn-sm btn-default">{$value->text}</a>
+                  {/if}
+               {/loop}
+            </div>
+            <div class="page-header">
+               <h1>
+                  <span class="glyphicon glyphicon-duplicate"></span> Agrupar {#FS_PEDIDOS#}
+                  {if="$fsc->resultados"}
+                  <span class="badge">{function="count($fsc->resultados)"}</span>
+                  {/if}
+               </h1>
+               <p class="help-block">
+                  Con esta herramienta puedes buscar y agrupar {#FS_PEDIDOS#}
+                  <b>de un mismo proveedor</b> y generar uno o varios {#FS_ALBARANES#}.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-3">
+            <div class="form-group">
+               Proveedor:
+               <div class="input-group">
+                  {if="$fsc->proveedor"}
+                  <input class="form-control" type="text" name="ac_proveedor" value="{$fsc->proveedor->razonsocial}" id="ac_proveedor" placeholder="Buscar" autocomplete="off"/>
+                  {else}
+                  <input class="form-control" type="text" name="ac_proveedor" id="ac_proveedor" placeholder="Buscar" autocomplete="off"/>
+                  {/if}
+                  <span class="input-group-btn">
+                     <button class="btn btn-default" type="button" onclick="document.f_agrupar_pre.ac_proveedor.value='';document.f_agrupar_pre.ac_proveedor.focus();">
+                        <span class="glyphicon glyphicon-edit"></span>
+                     </button>
+                  </span>
+               </div>
+            </div>
+         </div>
+         <div class="col-sm-2">
+            Serie:
+            <select name="codserie" class="form-control" onchange="this.form.submit()">
+            {loop="$fsc->serie->all()"}
+				   {if="$value->codserie==$fsc->codserie"}
+				   <option value="{$value->codserie}" selected="">{$value->descripcion}</option>
+				   {else}
+				   <option value="{$value->codserie}">{$value->descripcion}</option>
+				   {/if}
+				{/loop}
+            </select>
+         </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               Desde:
+               <input type="text" name="desde" class="form-control datepicker" value="{$fsc->desde}" autocomplete="off" onchange="this.form.submit()"/>
+            </div>
+         </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               Hasta:
+               <input type="text" name="hasta" class="form-control datepicker" value="{$fsc->hasta}" autocomplete="off" onchange="this.form.submit()"/>
+            </div>
+         </div>
+         <div class="col-sm-2">
+            Divisa:
+            <select name="coddivisa" class="form-control" onchange="this.form.submit()">
+            {loop="$fsc->divisa->all()"}
+				   {if="$value->coddivisa==$fsc->coddivisa"}
+				   <option value="{$value->coddivisa}" selected="">{$value->descripcion}</option>
+				   {else}
+				   <option value="{$value->coddivisa}">{$value->descripcion}</option>
+				   {/if}
+				{/loop}
+            </select>
+         </div>
+         <div class="col-sm-1">
+            <br/>
+            {if="$fsc->resultados"}
+            <button type="submit" class="btn btn-sm btn-default" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-search"></span>
+            </button>
+            {else}
+            <button type="submit" class="btn btn-sm btn-primary" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-search"></span>
+            </button>
+            {/if}
+         </div>
+      </div>
+   </div>
+</form>
+
+{if="$fsc->resultados"}
+<form id="f_agrupar_res" action="{$fsc->url()}" method="post" class="form">
+   <input type="hidden" name="petition_id" value="{$fsc->random_string()}"/>
+   <input type="hidden" name="codproveedor" value="{$fsc->proveedor->codproveedor}"/>
+   <input type="hidden" name="codserie" value="{$fsc->codserie}"/>
+   <input type="hidden" name="desde" value="{$fsc->desde}"/>
+   <input type="hidden" name="hasta" value="{$fsc->hasta}"/>
+   <input type="hidden" name="coddivisa" value="{$fsc->coddivisa}"/>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12">
+            <p class="help-block">
+               Esta herramienta permite agrupar de forma <b>parcial</b>, así que puedes
+               desmarcar las líneas que quieras y dejar los {#FS_PEDIDOS#}
+               abiertos para poder agrupar el resto después.
+               La columna <b>servido</b> te indica cuantas unidades han sido ya
+               aprobadas previamente.
+            </p>
+         </div>
+      </div>
+      <!--{$num=0}-->
+      {loop="$fsc->resultados"}
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="panel panel-default">
+               <div class="panel-heading">
+                  <a href="{$value->url()}">{$value->codigo}</a> {$value->numproveedor}
+                  {$value->fecha} {$value->hora}
+               </div>
+               {if="$value->observaciones!=''"}
+               <div class="panel-body">{$value->observaciones}</div>
+               {/if}
+               <div class="table-responsive">
+                  <table class="table table-hover">
+                     <thead>
+                        <tr>
+                           <th>Artículo</th>
+                           <th class="text-right" width="100">Cantidad</th>
+                           <th class="text-right" width="100">Servido</th>
+                           <th class="text-right">Precio</th>
+                           <th class="text-right">Dto.</th>
+                           <th class="text-right">Total</th>
+                           <th class="text-right">IVA</th>
+                           <th class="text-right">Total+IVA</th>
+                        </tr>
+                     </thead>
+                     {loop="$value->get_lineas()"}
+                     <!--{$servido=$fsc->linea_servida($value2->idlinea)}-->
+                     <tr>
+                        <td>
+                           <div class="checkbox-inline">
+                              <label>
+                                 <input type="checkbox" name="idl_{$num}" value="{$value2->idlinea}"{if="$servido!=$value2->cantidad"} checked="checked"{/if}/>
+                                 <a href="{$value2->articulo_url()}">{$value2->referencia}</a> {$value2->descripcion}
+                              </label>
+                           </div>
+                        </td>
+                        <td>
+                           <input type="number" name="cantidad_{$num}" value="{$value2->cantidad}" class="form-control input-sm text-right" autocomplete="off"/>
+                           <!--{$num=$num+1}-->
+                        </td>
+                        <td{if="$servido>=$value2->cantidad"} class="warning"{else} class="success"{/if}>
+                           <div class="form-control input-sm text-right">{$servido}</div>
+                        </td>
+                        <td class="text-right">{$fsc->show_precio($value2->pvpunitario, $value1->coddivisa)}</td>
+                        <td class="text-right">{$fsc->show_numero($value2->dtopor)} %</td>
+                        <td class="text-right">{$fsc->show_precio($value2->pvptotal, $value1->coddivisa)}</td>
+                        <td class="text-right">{$fsc->show_numero($value2->iva)} %</td>
+                        <td class="text-right">{$fsc->show_precio($value2->total_iva(), $value1->coddivisa)}</td>
+                     </tr>
+                     {/loop}
+                     <tr>
+                        <td colspan="5">
+                           <div class="checkbox-inline">
+                              <label>
+                                 <input type="checkbox" name="aprobado[]" value="{$value->idpedido}" checked="checked"/>
+                                 marcar {#FS_PEDIDO#} como aprobado
+                              </label>
+                           </div>
+                        </td>
+                        <td class="text-right"><b>{$fsc->show_precio($value->neto, $value->coddivisa)}</b></td>
+                        <td class="text-right"><b>{$fsc->show_precio($value->totaliva, $value->coddivisa)}</b></td>
+                        <td class="text-right"><b>{$fsc->show_precio($value->total, $value->coddivisa)}</b></td>
+                     </tr>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+      {/loop}
+      <div class="row">
+         <div class="col-sm-12 text-right">
+            <button type="submit" class="btn btn-sm btn-primary" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-file"></span>&nbsp; Generar {#FS_ALBARAN#}
+            </button>
+         </div>
+      </div>
+   </div>
+</form>
+{elseif="$fsc->proveedor"}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="panel panel-info">
+            <div class="panel-heading">
+               <h3 class="panel-title">Ayuda</h3>
+            </div>
+            <div class="panel-body">
+               No se han encontrado resultados para esta búsqueda. Prueba a cambiar los filtros.
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{else}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <hr/>
+         <p class="help-block text-center">
+            Si hay {#FS_PEDIDOS#} pendientes aparecerán los proveedores aquí debajo
+            para ahorrarte clics ;-)
+         </p>
+      </div>
+   </div>
+   <div class="row">
+      {loop="$fsc->pendientes()"}
+      <div class="col-sm-4 col-md-3">
+         <a href="{$fsc->url()}&codproveedor={$value['codproveedor']}&codserie={$value['codserie']}&desde={$value['desde']}&hasta={$value['hasta']}&coddivisa={$value['coddivisa']}" class="btn btn-sm btn-block {if="$value['num']>1"}btn-info{else}btn-default{/if}">
+            <span class="glyphicon glyphicon-user"></span>
+            &nbsp; {$value['nombre']}
+            {if="$value['num']>1"}&nbsp; ({$value['num']}){/if}
+         </a>
+         <p class="help-block">
+            <span class="text-capitalize">{#FS_SERIE#}:</span> {$value['codserie']},
+            divisa: {$value['coddivisa']}
+         </p>
+      </div>
+      {/loop}
+   </div>
+</div>
+{/if}
+
+{include="footer"}

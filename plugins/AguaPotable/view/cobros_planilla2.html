@@ -1,0 +1,153 @@
+{include="header"}
+
+<h2>Seleccionar las fechas del reporte</h2>
+<a class="btn btn-sm btn-default" onclick="window.print();">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
+<a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la pÃ¡gina">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+<form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
+<div class="col-sm-1">Desde: </div>
+<div class="col-sm-2">
+            <div class="form-group">
+               <div class="input-group">
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  <input type="text" name="desde" value="{$fsc->desde}" class="form-control datepicker" placeholder="Desde" autocomplete="off" onchange="this.form.submit()"/>
+               </div>
+            </div>
+         </div>
+<div class="col-sm-1">Hasta: </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               <div class="input-group">
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  <input type="text" name="hasta" value="{$fsc->hasta}" class="form-control datepicker" placeholder="Hasta" autocomplete="off" onchange="this.form.submit()"/>
+               </div>
+            </div>
+         </div>
+</form>
+<br><br><br><h3>PAGOS SERVICIOS DE AGUA</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Ejercicio</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Asiento</th>
+            <th class="text-left">Fecha</th>
+            <th class="text-left">Propietario Factura</th>
+            <th class="text-center">Valor Cobrado</th>
+            <!--<th class="text-center">Factura</th> -->
+        </tr>
+    </thead>
+    
+    {loop="$fsc->cobros"}
+    <tr>
+        <td class="text-center">{$value['codejercicio']}</td>
+        <td class="text-center">{$value['idasiento']}</td>
+        <td class="text-center">{$value['numero']}</td>
+        <td>{$value['fecha']}</td>
+        <td>{$value['concepto']}</td>
+        <td type="float" class="money" >$ {$value['importe']}</td>
+        <!--<td type="url" class="text-center"><a target="_new" href="{$value['url']}">IMPRIMIR FACTURA</a></td> -->
+        
+    </tr>
+    {/loop}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h4><b>Total Planilla de Agua</b></h4></td>
+        <td><h4><b>$ {$fsc->sumar()}</b></h4></td>
+    </tr>
+</table>
+
+<br><br><br><h3>PAGOS PUNTOS DE AGUA</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Ejercicio</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Asiento</th>
+            <th class="text-left">Fecha</th>
+            <th class="text-left">Propietario Factura</th>
+            <th class="text-center">Valor Cobrado</th>
+            <!--<th class="text-center">Factura</th> -->
+        </tr>
+    </thead>
+    
+    {loop="$fsc->cobrosPuntosAgua"}
+    <tr>
+        <td class="text-center">{$value['codejercicio']}</td>
+        <td class="text-center">{$value['idasiento']}</td>
+        <td class="text-center">{$value['numero']}</td>
+        <td>{$value['fecha']}</td>
+        <td>{$value['concepto']}</td>
+        <td type="float" class="money" >$ {$value['importe']}</td>
+        <!--<td type="url" class="text-center"><a target="_new" href="{$value['url']}">IMPRIMIR FACTURA</a></td> -->
+        
+    </tr>
+    {/loop}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h4><b>Total Puntos de Agua</b></h4></td>
+        <td><h4><b>$ {$fsc->sumarPuntosAgua()}</b></h4></td>
+    </tr>
+</table>
+
+<br><br><br><h3>PAGOS PUNTOS DE ALCANTARILLADO</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Ejercicio</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Asiento</th>
+            <th class="text-left">Fecha</th>
+            <th class="text-left">Propietario Factura</th>
+            <th class="text-center">Valor Cobrado</th>
+            <!--<th class="text-center">Factura</th> -->
+        </tr>
+    </thead>
+    
+    {loop="$fsc->cobrosPuntosAlcantarillado"}
+    <tr>
+        <td class="text-center">{$value['codejercicio']}</td>
+        <td class="text-center">{$value['idasiento']}</td>
+        <td class="text-center">{$value['numero']}</td>
+        <td>{$value['fecha']}</td>
+        <td>{$value['concepto']}</td>
+        <td type="float" class="money" >$ {$value['importe']}</td>
+        <!--<td type="url" class="text-center"><a target="_new" href="{$value['url']}">IMPRIMIR FACTURA</a></td> -->
+        
+    </tr>
+    {/loop}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h4><b>Total Puntos Alcantarillado</b></h4></td>
+        <td><h4><b>$ {$fsc->sumarPuntosAlcantarillado()}</b></h4></td>
+    </tr>
+</table>
+
+<table class="table table-hover">
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><h3><b>Total Recaudacion General</b></h3></td>
+      <td><h3><b>$ {$fsc->sumarTodo()}</b></h3></td>
+  </tr>   
+</table>
+
+{include="footer"}

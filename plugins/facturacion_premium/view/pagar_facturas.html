@@ -1,0 +1,255 @@
+{include="header"}
+
+<script type="text/javascript">
+   function fs_marcar_todo()
+   {
+      $("#f_agrupar_cli input[name='idfactura[]']").prop('checked', true);
+   }
+   function fs_marcar_nada()
+   {
+      $("#f_agrupar_cli input[name='idfactura[]']").prop('checked', false);
+   }
+   $(document).ready(function() {
+      $("#ac_cliente").autocomplete({
+         serviceUrl: '{$fsc->url()}',
+         paramName: 'buscar_cliente',
+         onSelect: function (suggestion) {
+            if(suggestion)
+            {
+               if(document.f_pagar_facturas.codcliente.value != suggestion.data)
+               {
+                  document.f_pagar_facturas.codcliente.value = suggestion.data;
+                  $("#todos_cli").prop('checked', false);
+               }
+            }
+         }
+      });
+   });
+</script>
+
+<form name="f_pagar_facturas" class="form" action="{$fsc->url()}" method="post">
+   <input type="hidden" name="codcliente" value="{$fsc->codcliente}"/>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="btn-group">
+               <a href="index.php?page=ventas_facturas" class="btn btn-sm btn-default">
+                  <span class="glyphicon glyphicon-arrow-left"></span>
+                  <span class="hidden-xs">&nbsp; Todo</span>
+               </a>
+               <a href="{$fsc->url()}" class="btn btn-sm btn-default" title="recargar la página">
+                  <span class="glyphicon glyphicon-refresh"></span>
+               </a>
+            </div>
+            <div class="btn-group">
+            {loop="$fsc->extensions"}
+               {if="$value->type=='button'"}
+               <a href="index.php?page={$value->from}{$value->params}" class="btn btn-sm btn-default">{$value->text}</a>
+               {/if}
+            {/loop}
+            </div>
+            <div class="page-header">
+               <h1>
+                  <span class="glyphicon glyphicon-check"></span> Pagar facturas de venta
+                  <span class="badge">{function="count($fsc->resultados)"}</span>
+               </h1>
+               <p class="help-block">
+                  Aplica los filtros que necesites, marca/desmarca las facturas que
+                  quieras y pulsa el botón <b>marcar como pagadas</b> para marcarlas
+                  como pagadas. Si tienes activada la contabilidad integrada se generarán
+                  los asientos contables de pago para cada factura.
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-sm-2">
+            <div class="form-group">
+               Desde:
+               <input class="form-control datepicker" type="text" name="desde" value="{$fsc->desde}" autocomplete="off" onchange="this.form.submit()"/>
+            </div>
+         </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               Hasta:
+               <input class="form-control datepicker" type="text" name="hasta" value="{$fsc->hasta}" autocomplete="off" onchange="this.form.submit()"/>
+            </div>
+         </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               Serie:
+               <select name="codserie" class="form-control" onchange="this.form.submit()">
+               {loop="$fsc->serie->all()"}
+                  {if="$value->codserie==$fsc->codserie"}
+                  <option value="{$value->codserie}" selected="">{$value->descripcion}</option>
+                  {else}
+                  <option value="{$value->codserie}">{$value->descripcion}</option>
+                  {/if}
+               {/loop}
+               </select>
+            </div>
+         </div>
+         <div class="col-sm-4">
+            <div class="form-group">
+               Cliente:
+               {if="$fsc->cliente"}
+               <input id="ac_cliente" class="form-control" type="text" name="ac_cliente" placeholder="{$fsc->cliente->razonsocial}" autocomplete="off"/>
+               {else}
+               <input id="ac_cliente" class="form-control" type="text" name="ac_cliente" placeholder="buscar..." autocomplete="off"/>
+               {/if}
+               <label class="checkbox-inline">
+                  {if="$fsc->codcliente"}
+                  <input id="todos_cli" type="checkbox" name="todos" value="TRUE" onchange="this.form.submit()"/>
+                  {else}
+                  <input id="todos_cli" type="checkbox" name="todos" value="TRUE" checked=""/>
+                  {/if}
+                  Todos los clienes
+               </label>
+            </div>
+         </div>
+         <div class="col-sm-2">
+            <div class="hidden-xs">
+               <br/>
+            </div>
+            {if="$fsc->resultados"}
+            <button class="btn btn-sm btn-default" type="submit" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-search"></span>&nbsp; Buscar
+            </button>
+            {else}
+            <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-search"></span>&nbsp; Buscar
+            </button>
+            {/if}
+         </div>
+      </div>
+   </div>
+</form>
+
+<div class="visible-xs">
+   <br/><br/>
+</div>
+
+{if="$fsc->resultados"}
+<form id="f_agrupar_cli" class="form" name="f_agrupar_cli" action="{$fsc->url()}" method="post">
+   <input type="hidden" name="codcliente" value="{$fsc->codcliente}"/>
+   {if="!$fsc->codcliente"}
+   <input type="hidden" name="todos" value="TRUE"/>
+   {/if}
+   <input type="hidden" name="desde" value="{$fsc->desde}"/>
+   <input type="hidden" name="hasta" value="{$fsc->hasta}"/>
+   <input type="hidden" name="codserie" value="{$fsc->codserie}"/>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-xs-6">
+            <div class="btn-group">
+               <button class="btn btn-sm btn-default" type="button" onclick="fs_marcar_todo()" title="Marcar todo">
+                  <span class="glyphicon glyphicon-check"></span>
+               </button>
+               <button class="btn btn-sm btn-default" type="button" onclick="fs_marcar_nada()" title="Desmarcar todo">
+                  <span class="glyphicon glyphicon-unchecked"></span>
+               </button>
+            </div>
+         </div>
+         <div class="col-xs-6 text-right">
+            <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-ok"></span>
+               <span class="hidden-xs">&nbsp; Marcar como pagadas</span>
+            </button>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-xs-12">
+            <div class="table-responsive">
+               <!--{$total=0}-->
+               <table class="table table-hover">
+                  <thead>
+                     <tr>
+                        <th></th>
+                        <th class="text-left">Código + Número 2</th>
+                        <th class="text-left">Cliente</th>
+                        <th class="text-left">Observaciones</th>
+                        <th class="text-right">Total</th>
+                        <th class="text-right">Fecha</th>
+                     </tr>
+                  </thead>
+                  {loop="$fsc->resultados"}
+                  <tr class="{if="$value->anulada"}danger{elseif="$value->total<=0"}warning{/if}">
+                     <td class="text-center">
+                        {if condition="$value->pagada"}
+                        <span class="glyphicon glyphicon-ok" title="La factura está pagada"></span>
+                        {else}
+                        <input type="checkbox" name="idfactura[]" value="{$value->idfactura}" checked="checked"/>
+                        <!--{$total+=$value->totaleuros}-->
+                        {/if}
+                     </td>
+                     <td>
+                        <a href="{$value->url()}">{$value->codigo}</a> {$value->numero2}
+                        {if="$value->anulada"}
+                        <span class="glyphicon glyphicon-remove" title="La {#FS_FACTURA#} está anulada"></span>
+                        {/if}
+                        {if="$value->idfacturarect"}
+                        <span class="glyphicon glyphicon-flag" title="{#FS_FACTURA_RECTIFICATIVA#} de {$value->codigorect}"></span>
+                        {/if}
+                     </td>
+                     <td>
+                        {$value->nombrecliente}
+                        {if="$value->codcliente"}
+                        <a href="{$fsc->url()}&codcliente={$value->codcliente}&desde={$fsc->desde}&hasta={$fsc->hasta}&codserie={$fsc->codserie}" class="cancel_clickable" title="Ver más facturas de {$value->nombrecliente}">[+]</a>
+                        {else}
+                        <span class="label label-danger" title="Cliente desconocido">???</span>
+                        {/if}
+                     </td>
+                     <td>{$value->observaciones_resume()}</td>
+                     <td class="text-right" title="{$fsc->show_precio($fsc->euro_convert($value->totaleuros, $value->coddivisa, $value->tasaconv))}">
+                        {$fsc->show_precio($value->total, $value->coddivisa)}
+                     </td>
+                     <td class="text-right" title="Hora {$value->hora}">
+                        {if="$value->fecha==$fsc->today()"}<b>{$value->fecha}</b>{else}{$value->fecha}{/if}
+                     </td>
+                  </tr>
+                  {else}
+                  <tr class="warning">
+                     <td></td>
+                     <td colspan="5">Ninguna factura encontrada. Pulsa <b>Nueva</b> para crear una.</td>
+                  </tr>
+                  {/loop}
+                  <tr>
+                     <td colspan="4"></td>
+                     <td class="text-right"><b>{$fsc->show_precio( $fsc->euro_convert($total) )}</b></td>
+                     <td></td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-xs-6">
+            <div class="btn-group">
+               <button class="btn btn-sm btn-default" type="button" onclick="fs_marcar_todo()" title="Marcar todo">
+                  <span class="glyphicon glyphicon-check"></span>
+               </button>
+               <button class="btn btn-sm btn-default" type="button" onclick="fs_marcar_nada()" title="Desmarcar todo">
+                  <span class="glyphicon glyphicon-unchecked"></span>
+               </button>
+            </div>
+         </div>
+         <div class="col-xs-6 text-right">
+            <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();">
+               <span class="glyphicon glyphicon-ok"></span>
+               <span class="hidden-xs">&nbsp; Marcar como pagadas</span>
+            </button>
+         </div>
+      </div>
+   </div>
+</form>
+{elseif="$fsc->codserie"}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="alert alert-info">Sin resultados. Intenta ajustar las fechas.</div>
+      </div>
+   </div>
+</div>
+{/if}
+
+{include="footer"}

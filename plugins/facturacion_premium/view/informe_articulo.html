@@ -1,0 +1,91 @@
+{include="header"}
+
+{if="$fsc->articulo"}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+   google.load('visualization', '1.0', {'packages':['corechart']});
+   
+   google.setOnLoadCallback(drawChart);
+   
+   function drawChart()
+   {
+      var data_chart = new google.visualization.DataTable();
+      data_chart.addColumn('string', 'mes');
+      data_chart.addColumn('number', 'Ventas');
+      data_chart.addColumn('number', 'Compras');
+      data_chart.addRows([
+      {loop="$fsc->stats_unidades"}
+         ['{$value['mes']}', {$value['ventas']}, {$value['compras']}],
+      {/loop}
+      ]);
+      
+      var chart = new google.visualization.AreaChart(document.getElementById('chart-articulo-unidades'));
+      chart.draw(data_chart);
+      
+      
+      var data_chart2 = new google.visualization.DataTable();
+      data_chart2.addColumn('string', 'mes');
+      data_chart2.addColumn('number', 'Ventas');
+      data_chart2.addColumn('number', 'Compras');
+      data_chart2.addRows([
+      {loop="$fsc->stats_precios"}
+         ['{$value['mes']}', {$value['ventas']}, {$value['compras']}],
+      {/loop}
+      ]);
+      
+      var chart2 = new google.visualization.AreaChart(document.getElementById('chart-articulo-precios'));
+      chart2.draw(data_chart2);
+   }
+</script>
+
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="btn-group">
+            <a href="{$fsc->articulo->url()}" class="btn btn-sm btn-default">
+               <span class="glyphicon glyphicon-arrow-left"></span>
+               <span class="hidden-xs">&nbsp; {$fsc->articulo->referencia}</span>
+            </a>
+            <a href="{$fsc->url()}&ref={$fsc->articulo->referencia}" class="btn btn-sm btn-default hidden-xs" title="Recargar la página">
+               <span class="glyphicon glyphicon-refresh"></span>
+            </a>
+         </div>
+         <div class="page-header">
+            <h1>
+               <i class="fa fa-line-chart" aria-hidden="true"></i>
+               &nbsp;Estadísticas de {$fsc->articulo->referencia}
+            </h1>
+            <p class="help-block">{$fsc->articulo->descripcion}</p>
+         </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h3 class="panel-title">Unidades compradas / vendidas</h3>
+            </div>
+            <div class="panel-body">
+               <div id="chart-articulo-unidades" style="height: 400px;"></div>
+               <p class="help-block">
+                  Este gráfico muestra las unidades compradas / vendidas mes a mes.
+                  En este periodo se han comprado un total de <b>{$fsc->show_numero($fsc->total_compras)}</b>
+                  unidades y se han vendido <b>{$fsc->show_numero($fsc->total_ventas)}</b> unidades.
+               </p>
+            </div>
+         </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <h3 class="panel-title">Precios de compra / venta</h3>
+            </div>
+            <div class="panel-body">
+               <div id="chart-articulo-precios" style="height: 400px;"></div>
+               <p class="help-block">
+                  Este gráfico muestra los precios de compra y venta mes a mes.
+                  Los precios son <b>netos</b>, sin impuestos, y se calculan con
+                  descuentos incluidos.
+               </p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{/if}
+
+{include="footer"}
