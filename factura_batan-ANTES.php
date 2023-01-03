@@ -754,7 +754,7 @@ div.WordSection1
   <span class=SpellE><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>Direccion: El Batan</p>
   <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>Fecha de Pago: <?php echo $_GET['fecha1'];?>
  <p><br>
-   <br><br></span>Cant: 1  Descripcion: Servicio de consumo de Agua Potable  Valor: <?php echo $_GET['valor'];?></p>
+   <br><br></span>Cant: 1  Descripciones: Servicio de consumo de Agua Potable  Valor: <?php echo $_GET['valor'];?></p>
   <br>
  </p>
  <b><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Número de Meses Pagado: <?php echo $_GET['Me'];?>. <br>

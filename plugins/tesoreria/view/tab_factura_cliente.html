@@ -1,0 +1,155 @@
+{include="header2"}
+
+<!--{$total=0}-->
+
+{if="$fsc->pagada_previamente"}
+<br/>
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="alert alert-info">
+            Esta factura fué marcada como pagada previamente, por eso no se generan
+            los recibos.
+         </div>
+      </div>
+   </div>
+   <div>
+      <div class="col-sm-12">
+         <a href="{$fsc->url()}&id={$fsc->factura->idfactura}&regenerar=TRUE" class="btn btn-sm btn-warning">
+            <span class="glyphicon glyphicon-duplicate"></span>&nbsp; Generar recibos igualmente
+         </a>
+      </div>
+   </div>
+</div>
+<br/>
+{else}
+<div class="table-responsive">
+   <table class="table table-hover">
+      <thead>
+         <tr>
+            <th width="120">Código</th>
+            <th class="text-right" width="120">Importe</th>
+            <th>Forma de pago</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Observaciones</th>
+         </tr>
+      </thead>
+      {loop="$fsc->resultados"}
+      <tr class="clickableRow{if="$value->estado=='Pagado'"} success{elseif="$value->vencido()"} danger{else} warning{/if}" href="{$value->url()}" target="_parent">
+         <td><a href="{$value->url()}" target="_parent" class="cancel_clickable">{$value->codigo}</a></td>
+         <td class="text-right">
+            {$fsc->show_precio($value->importe, $value->coddivisa)}
+            <!--{$total=$total+$value->importe}-->
+         </td>
+         <td>
+            {$value->codpago}
+            {if="$value->iban"}<span class="label label-default">IBAN</span>{/if}
+            {if="$value->swift"}<span class="label label-default">SWIFT/BIC</span>{/if}
+            {if="$value->idremesa"}
+            <span title="Remesa {$value->idremesa}">
+               <i class="fa fa-university" aria-hidden="true"></i>
+            </span>
+            {/if}
+         </td>
+         <td>{$value->fecha}</td>
+         <td>
+            {if="$value->estado=='Pagado'"}
+            <span title="Pagado el {$value->fechap}">
+               <span class="glyphicon glyphicon-ok"></span> &nbsp; {$value->fechap}
+            </span>
+            {elseif="$value->estado=='Emitido'"}
+            <span title="Fecha de vencimiento: {$value->fechav}">
+               <span class="glyphicon glyphicon-hourglass"></span>&nbsp; {$value->fechav}
+            </span>
+            {else}
+            {$value->estado} el {$value->fechav}
+            {/if}
+         </td>
+         <td>{$value->observaciones_resume()}</td>
+      </tr>
+      {/loop}
+      {if="abs($fsc->factura->total-$total)>.01"}
+      <tr>
+         <td></td>
+         <td class="danger text-right">
+            Pendiente:<br/>
+            <b>{$fsc->show_precio($fsc->factura->total-$total, $fsc->factura->coddivisa)}</b>
+         </td>
+         <td colspan="4"></td>
+      </tr>
+      {/if}
+   </table>
+</div>
+
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-4">
+         <h3>
+            <span class="glyphicon glyphicon-question-sign"></span>
+            Los recibos se generan automáticamente
+         </h3>
+         <p class="help-block">
+            Los recibos se generan de forma automática a partir de la
+            <a href="index.php?page=contabilidad_formas_pago" target="_parent">forma de pago</a>.
+            Para cada plazo de pago se genera un recibo.
+         </p>
+         <a href="{$fsc->url()}&id={$fsc->factura->idfactura}&regenerar=TRUE" class="btn btn-sm btn-warning">
+            <span class="glyphicon glyphicon-duplicate"></span>&nbsp; Regenerar
+         </a>
+      </div>
+      <div class="col-sm-4">
+         <h3>
+            <span class="glyphicon glyphicon-edit"></span>
+            Clic para editar
+         </h3>
+         <p class="help-block">
+            También puedes editar manualmente los recibos,
+            cambiar la fecha de vencimiento, modificar el estado o el importe.
+         </p>
+      </div>
+      <div class="col-sm-4">
+         {if="!$fsc->factura->floatcmp($fsc->factura->total,$total)"}
+         <form action="{$fsc->url()}" method="post" class="form" target="_parent">
+            <input type="hidden" name="idfactura" value="{$fsc->factura->idfactura}"/>
+            <div class="panel panel-info">
+               <div class="panel-heading">
+                  <h3 class="panel-title">
+                     <span class="glyphicon glyphicon-plus-sign"></span>
+                     Añade recibos
+                  </h3>
+               </div>
+               <div class="panel-body">
+                  <div class="form-group">
+                     <div class="input-group">
+                        <span class="input-group-addon">Importe</span>
+                        <input type="number" step="any" name="importe" value="{function="round($fsc->factura->total-$total,FS_NF0)"}" class="form-control" autocomplete="off"/>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-group">
+                        <span class="input-group-addon">Fecha</span>
+                        <input type="text" name="fecha" value="{$fsc->today()}" class="form-control datepicker" autocomplete="off"/>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="input-group">
+                        <span class="input-group-addon">Vencimiento</span>
+                        <input type="text" name="fechav" value="{$fsc->vencimiento}" class="form-control datepicker" autocomplete="off"/>
+                     </div>
+                  </div>
+               </div>
+               <div class="panel-footer">
+                  <button class="btn btn-sm btn-primary" type="submit" onclick="this.disabled=true;this.form.submit();" title="Guardar">
+                     <span class="glyphicon glyphicon-floppy-disk"></span>&nbsp; Guardar
+                  </button>
+               </div>
+            </div>
+         </form>
+         {/if}
+      </div>
+   </div>
+</div>
+{/if}
+
+{include="footer2"}

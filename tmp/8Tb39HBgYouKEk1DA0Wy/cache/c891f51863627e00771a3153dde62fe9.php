@@ -1,0 +1,1 @@
+a:4:{i:0;a:3:{s:3:"tag";s:2:"pu";s:7:"expires";i:1670184221;s:5:"count";i:3;}i:1;a:3:{s:3:"tag";s:3:"pun";s:7:"expires";i:1670184221;s:5:"count";i:3;}i:2;a:3:{s:3:"tag";s:4:"punt";s:7:"expires";i:1670193400;s:5:"count";i:3;}i:3;a:3:{s:3:"tag";s:5:"punto";s:7:"expires";i:1670182600;s:5:"count";i:1;}}

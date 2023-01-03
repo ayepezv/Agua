@@ -1,0 +1,135 @@
+{include="header2"}
+
+{if="$fsc->url_recarga"}
+<script type="text/javascript">
+   function recargar()
+   {
+      window.location.href = '{$fsc->url_recarga}';
+   }
+   $(document).ready(function() {
+      setTimeout(recargar, 1000);
+   });
+</script>
+{/if}
+
+{if="$fsc->cluf_ok()"}
+<div class="container-fluid">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="page-header">
+            <h1>
+               <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
+               Tesorería
+            </h1>
+            <p class="help-block">
+               Muchas gracias por adquirir el plugin tesorería. Este plugin tiene
+               las siguiente características:
+            </p>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      {if="!$fsc->url_recarga"}
+      <div class="col-sm-4">
+         <div class="embed-responsive embed-responsive-16by9">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/XcfM-fCS-mA" frameborder="0" allowfullscreen></iframe>
+         </div>
+         <br/>
+      </div>
+      {/if}
+      <div class="col-sm-8">
+         <ul>
+            <li>
+               Añade gestión de recibos de facturas de compra y de venta.
+               <ul>
+                  <li>Vaya a <b>Compras &gt; Recibos</b> para ver los recibos de las facturas de compra.</li>
+                  <li>Vaya a <b>Ventas &gt; Recibos</b> para ver los recibos de las facturas de venta.</li>
+               </ul>
+            </li>
+            <li>
+               Incluye formas de pago mejoradas, que permiten definir plazos de pago.
+               Por ejemplo, puede definir un pago 30-60-90, generando en las facturas
+               un recibo a los 30 días, otro a los 60 y otro a los 90.
+               <ul>
+                  <li>
+                     Puede ver o modificar las formas de pago desde <b>Contabilidad &gt; Formas de pago</b>.
+                  </li>
+                  <li>
+                     Use el botón &nbsp;
+                     <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> &nbsp;
+                     para definir los plazos de pago de cada forma de pago.
+                  </li>
+               </ul>
+            </li>
+            <li><b>Remesas bancarias</b> en el nuevo formato SEPA XML.</li>
+            <li>
+               También permite gestionar los pagos o adelantos de {#FS_PEDIDOS#} y {#FS_ALBARANES#}.
+               <ul>
+                  <li>Añade la pestaña <b>Pagos</b> a los {#FS_PEDIDOS#} y {#FS_ALBARANES#}.</li>
+               </ul>
+            </li>
+            <li>
+               Es compatible con el módulo de tesorería de Eneboo.
+            </li>
+         </ul>
+         <br/>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-3">
+         <a href="index.php?page=contabilidad_formas_pago" class="btn btn-block btn-default">
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><br/>Plazos de pago
+         </a>
+         <br/>
+      </div>
+      <div class="col-sm-3">
+         <a href="index.php?page=compras_recibos" class="btn btn-block btn-default">
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span><br/>Recibos de compra
+         </a>
+         <br/>
+      </div>
+      <div class="col-sm-3">
+         <a href="index.php?page=ventas_recibos" class="btn btn-block btn-default">
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span><br/>Recibos de venta
+         </a>
+         <br/>
+      </div>
+      <div class="col-sm-3">
+         <a href="index.php?page=remesas" class="btn btn-block btn-default">
+            <i class="fa fa-university" aria-hidden="true"></i><br/>Remesas
+         </a>
+         <br/>
+      </div>
+   </div>
+</div>
+{else}
+<div class="container">
+   <div class="row">
+      <div class="col-sm-12">
+         <div class="page-header">
+            <h1><i class="fa fa-puzzle-piece" aria-hidden="true"></i> Tesoreria</h1>
+         </div>
+         <pre>{function="file_get_contents('plugins/tesoreria/LICENSE')"}</pre>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-xs-6">
+         <a href="index.php?page=admin_home&disable=tesoreria#plugins" class="btn btn-sm btn-danger">
+            <i class="fa fa-remove" aria-hidden="true"></i> Rechazar
+         </a>
+      </div>
+      <div class="col-xs-6 text-right">
+         <a href="{$fsc->url()}&cluf_ok=TRUE" class="btn btn-sm btn-primary">
+            <i class="fa fa-check" aria-hidden="true"></i> Aceptar
+         </a>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-12">
+         <br/><br/><br/>
+      </div>
+   </div>
+</div>
+{/if}
+
+{include="footer2"}

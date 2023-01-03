@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura version="1.0.0" id="comprobante">
+  <infoTributaria>
+    <ambiente>2</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Junta Administradora de Agua Potable y Saneamiento San Jose del Batan</razonSocial>
+    <nombreComercial>J.A.A.P. Batan</nombreComercial>
+    <ruc>0691760901001</ruc>
+    <claveAcceso>0412202201069176090100120010010000000631234567812</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000063</secuencial>
+    <dirMatriz>San José del Batán, Parque Central</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>04/12/2022</fechaEmision>
+    <dirEstablecimiento>San José del Batán, Parque Central</dirEstablecimiento>
+    <obligadoContabilidad>SI</obligadoContabilidad>
+    <tipoIdentificacionComprador>05</tipoIdentificacionComprador>
+    <razonSocialComprador>QUISPILLO USHCA ANGEL MARCO</razonSocialComprador>
+    <identificacionComprador>0602492803</identificacionComprador>
+    <direccionComprador>BARRIO EL BATAN</direccionComprador>
+    <totalSinImpuestos>27.68</totalSinImpuestos>
+    <totalSubsidio>0</totalSubsidio>
+    <totalDescuento>0</totalDescuento>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>0</codigoPorcentaje>
+        <baseImponible>27.68</baseImponible>
+        <valor>0.00</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0</propina>
+    <importeTotal>27.68</importeTotal>
+    <moneda>DOLAR</moneda>
+    <pagos>
+      <pago>
+        <formaPago>01</formaPago>
+        <total>27.68</total>
+        <plazo>0</plazo>
+        <unidadTiempo>dias</unidadTiempo>
+      </pago>
+    </pagos>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>78</codigoPrincipal>
+      <codigoAuxiliar>78</codigoAuxiliar>
+      <descripcion>Agua Variable</descripcion>
+      <cantidad>1</cantidad>
+      <precioUnitario>2.00</precioUnitario>
+      <descuento>0.00</descuento>
+      <precioTotalSinImpuesto>2.00</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>0</codigoPorcentaje>
+          <tarifa>0</tarifa>
+          <baseImponible>2.00</baseImponible>
+          <valor>0.00</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+  <infoAdicional>
+    <campoAdicional nombre="Domicilio">BARRIO EL BATAN</campoAdicional>
+    <campoAdicional nombre="email">ns@ns.com</campoAdicional>
+    <campoAdicional nombre="Concepto">Agua Variable Correspondiente a: FEBRERO-2022; MARZO-2022; ABRIL-2022; MAYO-2022; JUNIO-2022; JULIO-2022; AGOSTO-2022; SEPTIEMBRE-2022; OCTUBRE-2022; NOVIEMBRE-2022; </campoAdicional>
+    <campoAdicional nombre="Cuenta">Cuenta:160 Lec Act: 3567 - Lec Ant: 3541 = Consumo: 26 m3 - Mes: NOVIEMBRE-2022; </campoAdicional>
+    <campoAdicional nombre="Recaudador">Pepe Paco</campoAdicional>
+  </infoAdicional>
+</factura>
