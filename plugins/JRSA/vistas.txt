@@ -1,0 +1,71 @@
+-- View: public.datos_cliente_2_jrsa
+
+-- DROP VIEW public.datos_cliente_2_jrsa;
+
+CREATE OR REPLACE VIEW public.datos_cliente_2_jrsa
+ AS
+ SELECT replace(clientes.cifnif::text, '-'::text, ''::text) AS ruc_cliente,
+        CASE
+            WHEN clientes.email::text = ''::text OR clientes.email IS NULL THEN 'ns@ns.com'::character varying
+            ELSE clientes.email
+        END AS email_cliente,
+    clientes.nombre AS nombre_cliente,
+    clientes.razonsocial AS razon_cliente,
+        CASE
+            WHEN clientes.telefono1::text = ''::text OR clientes.telefono1 IS NULL THEN
+            CASE
+                WHEN clientes.telefono2::text = ''::text OR clientes.telefono2 IS NULL THEN '000000000'::character varying
+                ELSE clientes.telefono2
+            END
+            ELSE clientes.telefono1
+        END AS telefono_cliente,
+    clientes.codcliente,
+    0 AS cuenta,
+    0 AS medidor,
+    's/n'::text AS direccion,
+    0 AS tarifa_completa,
+        CASE clientes.tipoidfiscal
+            WHEN 'Pasaporte'::text THEN '06'::text
+            WHEN 'Cedula'::text THEN '05'::text
+            WHEN 'R.U.C'::text THEN '04'::text
+            ELSE NULL::text
+        END AS tipoidfiscal
+   FROM clientes;
+
+ALTER TABLE public.datos_cliente_2_jrsa
+    OWNER TO postgres;
+
+********************************
+crear 
+
+-- Table: public.certificantes_jrsa
+
+-- DROP TABLE public.certificantes_jrsa;
+
+CREATE TABLE public.certificantes_jrsa
+(
+    id smallint NOT NULL,
+    descripcion character varying(80) COLLATE pg_catalog."default",
+    numero smallint,
+    estado smallint,
+    CONSTRAINT certificantes_jrsa_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.certificantes_jrsa
+    OWNER to postgres;
+
+
+estos son los datos
+1	"BANCO CENTRAL"	1	1
+2	"SECURITY DATA"	2	1
+3	"CONSEJO JUDICATURA"	3	1
+
+**************************
+
+en ambientes_jrsa
+1	"Pruebas"	1	1
+2	"Producción"	2	1

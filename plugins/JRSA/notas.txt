@@ -1,0 +1,13 @@
+agregar en plugins/tesoreria/controller -> pagar_facturas.php
+editar base/fs_edit_form.php linea 144
+$html = '<select name="'.$col_name.'" class="form-control"' . $required . '>';
+agregar despues de la linea 122
+case 'file':
+                $html .= '<input class="form-control" type="file" name="' . $col_name
+                    . '" value="' . $model->{$col_name} . '" autocomplete="off"' . $required . '/><label class="control-label">Nombre Archivo: '.$model->{$col_name}.'</label>';
+                break;
+
+editar view/master/edit_controller.html linea 37
+<form action="{$fsc->model->url('edit')}&code={$fsc->model->primary_column_value()}" method="post" class="form">
+
+PHP Version 7.4.28

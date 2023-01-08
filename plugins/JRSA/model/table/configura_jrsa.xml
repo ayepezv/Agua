@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Document   : configura_jrsa.xml
+   Description:
+        Estructura de la tabla configura_jrsa.
+-->
+<tabla>
+  <columna>
+    <nombre>ambiente</nombre>
+    <tipo>smallint</tipo>
+    <nulo>YES</nulo>
+  </columna>  
+  <columna>
+    <nombre>cespecialresolucion</nombre>
+    <tipo>character varying(6)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>clave</nombre>
+    <tipo>character varying(20)</tipo>
+    <nulo>YES</nulo>
+  </columna>  
+  <columna>
+    <nombre>contabilidad</nombre>
+    <tipo>boolean</tipo>
+    <nulo>YES</nulo>
+  </columna> 
+  <columna>
+    <nombre>establecimiento</nombre>
+    <tipo>character varying(3)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>estado</nombre>
+    <tipo>boolean</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>firma</nombre>
+    <tipo>character varying(80)</tipo>
+    <nulo>YES</nulo>
+  </columna>    
+  <columna>
+    <nombre>id</nombre>
+    <tipo>smallint</tipo>
+    <nulo>NO</nulo>
+  </columna>
+  <columna>
+    <nombre>logo</nombre>
+    <tipo>character varying(80)</tipo>
+    <nulo>YES</nulo>
+  </columna>  
+  <columna>
+    <nombre>punto</nombre>
+    <tipo>character varying(3)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>rimpe</nombre>
+    <tipo>boolean</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>tipo_firma</nombre>
+    <tipo>smallint</tipo>
+    <nulo>YES</nulo>
+  </columna>  
+  <restriccion>
+    <nombre>configura_jrsa_pkey</nombre>
+    <consulta>PRIMARY KEY (id)</consulta>
+  </restriccion>
+</tabla>
