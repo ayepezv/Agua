@@ -4,7 +4,6 @@
  * @author Carlos GarcÃ­a GÃ³mez      neorazorx@gmail.com
  * @copyright 2014-2016, Carlos GarcÃ­a GÃ³mez. All Rights Reserved. 
  */
-
 require_model('asiento.php');
 require_model('cliente.php');
 require_model('cuenta_banco.php');
@@ -31,6 +30,7 @@ class pagar_facturas extends fs_controller
    public $hasta;
    public $resultados;
    public $serie;
+   //public $cuenta;
    
    public function __construct()
    {
@@ -39,6 +39,8 @@ class pagar_facturas extends fs_controller
    
    protected function private_core()
    {
+      
+      
       $this->desde = Date('01-01-Y');
       if( isset($_REQUEST['desde']) )
       {
@@ -153,9 +155,8 @@ class pagar_facturas extends fs_controller
       {
          $sql .= " AND codcliente = ".$this->serie->var2str($this->codcliente);
       }
-      
-      $sql .= " ORDER BY fecha ASC, codigo ASC";
-      echo "<script>console.log('Console: " . $sql . "' );</script>";
+      $sql .= " ORDER BY cuenta ASC, fecha ASC, codigo ASC";
+      //echo "<script>console.log('Console: " . $sql . "' );</script>";
       $data = $this->db->select_limit($sql, FS_ITEM_LIMIT, 0);
       if($data)
       {

@@ -1,0 +1,70 @@
+{include="header"}
+
+<h2>Junta de Agua Potable "El Batán"</h2>
+<h3>Listado para Cortes Fecha: {$fsc->desde}</h3>
+<a class="btn btn-sm btn-default" onclick="window.print();">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
+<a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la pÃ¡gina">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+<!--<div class="col-sm-1">Desde: </div>
+<div class="col-sm-2">
+            <div class="form-group">
+               <div class="input-group">
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  <input type="text" name="desde" value="{$fsc->desde}" class="form-control datepicker" placeholder="Desde" autocomplete="off" onchange="this.form.submit()"/>
+               </div>
+            </div>
+         </div>
+<div class="col-sm-1">Hasta: </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               <div class="input-group">
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  <input type="text" name="hasta" value="{$fsc->hasta}" class="form-control datepicker" placeholder="Hasta" autocomplete="off" onchange="this.form.submit()"/>
+               </div>
+            </div>
+         </div> -->
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Secuencia</th>
+            <th class="text-center">Cuenta</th>
+            <th class="text-center">Deuda</th>
+            <th class="text-left">Meses</th>
+            <th class="text-left">Cedula</th>
+            <th class="text-center">Apellido</th>
+            <th class="text-center">Direccion</th>
+            <th class="text-center">Medidor</th>
+        </tr>
+    </thead>
+    
+    {loop="$fsc->cobros"}
+    <tr>
+        <td class="text-center">{$value['secuencia']}</td>
+        <td class="text-center">{$value['cuenta']}</td>
+        <td class="text-center">$ {$value['sum']}</td>
+        <td>{$value['count']}</td>
+        <td>{$value['cedula']}</td>
+        <td type="float" class="money" >{$value['apellidos']}</td>
+        <td type="float" class="money" >{$value['direccion']}</td>
+        <td type="float" class="money" >{$value['medidor']}</td>
+    </tr>
+    {/loop}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h4><b>Valor por Recaudar Cortes</b></h4></td>
+        <td><h4><b>{$fsc->sumar()}</b></h4></td>
+    </tr>
+</table>
+
+{include="footer"}

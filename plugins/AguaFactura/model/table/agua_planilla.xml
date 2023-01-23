@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Document   : agua_planilla.xml
+   Description:
+        Estructura de la tabla agua_planilla.
+-->
+<tabla>
+  <columna>
+    <nombre>agua</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>alcantarillado</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>anio</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>consumo</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cuenta</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>descuento</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>estado_pago</nombre>
+    <tipo>character varying(15)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>fecha_emision</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>fecha_hora</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>fecha_pago</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>id</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>int_x_mora</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>lec_anterior</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>lect_actual</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>mantenimiento_catastro</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>mes</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>num_factura</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>pagado</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>tec_administrativos</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>total</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>usuario_cobro</nombre>
+    <tipo>text</tipo>
+    <nulo>YES</nulo>
+  </columna>
+</tabla>

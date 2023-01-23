@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Document   : agua_abonados.xml
+   Description:
+        Estructura de la tabla agua_abonados.
+-->
+<tabla>
+  <columna>
+    <nombre>activo</nombre>
+    <tipo>character varying(5)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>apellidos</nombre>
+    <tipo>character varying(50)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cedula</nombre>
+    <tipo>character varying(13)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>ciclo</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cod_medidor</nombre>
+    <tipo>character varying(15)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cuenta</nombre>
+    <tipo>integer</tipo>
+    <nulo>NO</nulo>
+  </columna>
+  <columna>
+    <nombre>departamento</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>direccion</nombre>
+    <tipo>character varying(100)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>estado</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>fecha</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>fecha_nacimiento</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>interes_activo</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>manzana</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>medidor</nombre>
+    <tipo>character varying(15)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>nombres</nombre>
+    <tipo>character varying(50)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>piso</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>ruta</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>sector</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>secuencia</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>tarifa</nombre>
+    <tipo>character varying(10)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>tarifa_completa</nombre>
+    <tipo>character varying(20)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>tercera_edad</nombre>
+    <tipo>double precision</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <restriccion>
+    <nombre>agua_abonados_pkey</nombre>
+    <consulta>PRIMARY KEY (cuenta)</consulta>
+  </restriccion>
+</tabla>

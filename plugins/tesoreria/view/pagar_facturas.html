@@ -89,19 +89,13 @@
                </select>
             </div>
          </div>
-         <!--<div class="col-sm-1">
-            <div class="form-group">
-               Cuenta:
-               <input id="cuenta" class="form-control" type="text" name="cuenta" placeholder="# cuenta..." autocomplete="off"/>
-            </div>
-         </div> -->
          <div class="col-sm-4">
             <div class="form-group">
                Clientes:
                {if="$fsc->cliente"}
-               <input id="ac_cliente" class="form-control" type="text" name="ac_cliente" placeholder="{$fsc->cliente->nombre}" autocomplete="off"/>
+               <input id="ac_cliente" class="form-control" type="text" name="ac_cliente" placeholder="{$fsc->cliente->nombre}" autocomplete="on"/>
                {else}
-               <input id="ac_cliente" class="form-control" type="text" name="ac_cliente" placeholder="buscar..." autocomplete="off"/>
+               <input id="ac_cliente" class="form-control" type="text" name="ac_cliente" placeholder="buscar..." autocomplete="on"/>
                {/if}
                <label class="checkbox-inline">
                   {if="$fsc->codcliente"}
@@ -144,6 +138,7 @@
    <input type="hidden" name="desde" value="{$fsc->desde}"/>
    <input type="hidden" name="hasta" value="{$fsc->hasta}"/>
    <input type="hidden" name="codserie" value="{$fsc->codserie}"/>
+   <!-- comment <input type="hidden" name="cuenta" value="{$fsc->cuenta}"/>-->
    <div class="container-fluid">
       <div class="row">
          <div class="col-xs-6">

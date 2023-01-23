@@ -1,0 +1,116 @@
+{include="header"}
+
+
+
+<h2>Seleccionar las fechas del reporte</h2>
+<a class="btn btn-sm btn-default" onclick="window.print();">
+                    <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                </a>
+<a class="btn btn-sm btn-default" href="{$fsc->url()}" title="Recargar la pÃ¡gina">
+                        <span class="glyphicon glyphicon-refresh"></span>
+                    </a>
+<form name="f_custom_search" action="{$fsc->url()}" method="post" class="form">
+<div class="col-sm-1">Desde: </div>
+<div class="col-sm-2">
+            <div class="form-group">
+               <div class="input-group">
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  <input type="text" name="desde" value="{$fsc->desde}" class="form-control datepicker" placeholder="Desde" autocomplete="off" onchange="this.form.submit()"/>
+               </div>
+            </div>
+         </div>
+<div class="col-sm-1">Hasta: </div>
+         <div class="col-sm-2">
+            <div class="form-group">
+               <div class="input-group">
+                  <span class="input-group-addon">
+                     <span class="glyphicon glyphicon-calendar"></span>
+                  </span>
+                  <input type="text" name="hasta" value="{$fsc->hasta}" class="form-control datepicker" placeholder="Hasta" autocomplete="off" onchange="this.form.submit()"/>
+               </div>
+            </div>
+         </div>
+</form>
+
+<br><br><br><h3>PAGOS SERVICIOS DE AGUA ELECTRONICA</h3>
+
+<br><br><br><h4>FACTURAS ELECTRONICAS AUTORIZADAS</h4>
+<table class="table table-hover">
+    <thead>
+        <tr>
+			<th class="text-center">Orden</th>
+            <th class="text-center">Factura</th>
+            <th class="text-center">CI / RUC</th>
+            <th class="text-center">Nombre</th>
+            <th class="text-left">Fecha</th>
+            <th class="text-left">Clave de Acceso</th>
+            <th class="text-center">Valor</th>
+            <!--<th class="text-center">Factura</th> -->
+        </tr>
+    </thead>
+    
+    {loop="$fsc->autorizada"}
+    <tr>
+        <td class="text-center">{$value['identificador']}</td>
+        <td class="text-center">{$value['factura']}</td>
+        <td class="text-center">{$value['ci_ruc_cliente']}</td>
+        <td class="text-center">{$value['nombre_cliente']}</td>
+        <td>{$value['fecha_crea']}</td>
+        <td>{$value['clave_acceso']}</td>
+        <td type="float" class="money" >$ {$value['base_impoble']}</td>
+        <!--<td type="url" class="text-center"><a target="_new" href="{$value['url']}">IMPRIMIR FACTURA</a></td> -->
+        
+    </tr>
+    {/loop}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h4><b>Total Facturas Electrónicas Autorizadas</b></h4></td>
+        <td><h4><b>$ {$fsc->sumaautorizada()}</b></h4></td>
+    </tr>
+</table>
+
+<br><br><br><h4>FACTURAS ELECTRONICAS PENDIENTES</h4>
+<table class="table table-hover">
+    <thead>
+        <tr>
+			<th class="text-center">Orden</th>
+            <th class="text-center">Factura</th>
+            <th class="text-center">CI / RUC</th>
+            <th class="text-center">Nombre</th>
+            <th class="text-left">Fecha</th>
+            <th class="text-left">Clave de Acceso</th>
+            <th class="text-center">Valor</th>
+            <!--<th class="text-center">Factura</th> -->
+        </tr>
+    </thead>
+    
+    {loop="$fsc->pendiente"}
+    <tr>
+        <td class="text-center">{$value['identificador']}</td>
+        <td class="text-center">{$value['factura']}</td>
+        <td class="text-center">{$value['ci_ruc_cliente']}</td>
+        <td class="text-center">{$value['nombre_cliente']}</td>
+        <td>{$value['fecha_crea']}</td>
+        <td>{$value['clave_acceso']}</td>
+        <td type="float" class="money" >$ {$value['base_impoble']}</td>
+        <!--<td type="url" class="text-center"><a target="_new" href="{$value['url']}">IMPRIMIR FACTURA</a></td> -->
+        
+    </tr>
+    {/loop}
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><h4><b>Total Facturas Electrónicas Pendientes</b></h4></td>
+        <td><h4><b>$ {$fsc->sumapendiente()}</b></h4></td>
+    </tr>
+</table>
+
+
+{include="footer"}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Document   : agua_ciclo.xml
+   Description:
+        Estructura de la tabla agua_ciclo.
+-->
+<tabla>
+  <columna>
+    <nombre>cic_id</nombre>
+    <tipo>serial</tipo>
+    <nulo>NO</nulo>
+    <defecto>nextval('agua_ciclo_cic_id_seq'::regclass)</defecto>
+  </columna>
+  <columna>
+    <nombre>cic_num</nombre>
+    <tipo>character varying(3)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_nombre</nombre>
+    <tipo>character varying(50)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_proceso_anio</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_proceso_mes</nombre>
+    <tipo>integer</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_proceso_estado</nombre>
+    <tipo>smallint</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_actualiza</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_digitalizacion</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_facturacion</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_validacion</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_validacion_esf</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_validacion_neg</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_validacion_prom</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_validacion_pue</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_fecha_verificacion</nombre>
+    <tipo>timestamp without time zone</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_proceso_facturado</nombre>
+    <tipo>boolean</tipo>
+    <nulo>YES</nulo>
+  </columna>
+ <columna>
+    <nombre>cic_urbano</nombre>
+    <tipo>boolean</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <columna>
+    <nombre>cic_usuario</nombre>
+    <tipo>character varying(20)</tipo>
+    <nulo>YES</nulo>
+  </columna>
+  <restriccion>
+    <nombre>agua_ciclo_pkey</nombre>
+    <consulta>PRIMARY KEY (cic_id)</consulta>
+  </restriccion>
+</tabla>
